@@ -40,8 +40,8 @@ public class ExcelWriter {
         // Create a Workbook
         Workbook workbook = new XSSFWorkbook();     // new HSSFWorkbook() for generating `.xls` file
 
-        /* CreationHelper helps us create instances for various things like
-           DataFormat, Hyperlink, RichTextString etc in a format (HSSF, XSSF) independent way */
+        /* CreationHelper helps us create instances for various things like DataFormat,
+           Hyperlink, RichTextString etc in a format (HSSF, XSSF) independent way */
         CreationHelper createHelper = workbook.getCreationHelper();
 
         // Create a Sheet
