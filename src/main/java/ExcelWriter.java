@@ -2,6 +2,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,7 +38,10 @@ public class ExcelWriter {
     public static void main(String[] args) throws IOException, InvalidFormatException {
 
         // Create a Workbook
-        Workbook workbook = new XSSFWorkbook();
+        Workbook workbook = new XSSFWorkbook();     // new HSSFWorkbook() for generating `.xls` file
+
+        /* CreationHelper helps us create instances for various things like
+           DataFormat, Hyperlink, RichTextString etc in a format (HSSF, XSSF) independent way */
         CreationHelper createHelper = workbook.getCreationHelper();
 
         // Create a Sheet
@@ -78,20 +82,50 @@ public class ExcelWriter {
             row.createCell(1)
                     .setCellValue(employee.getEmail());
 
-            Cell dobCell = row.createCell(2);
-            dobCell.setCellValue(employee.getDateOfBirth());
-            dobCell.setCellStyle(dateCellStyle);
+            Cell dateOfBirthCell = row.createCell(2);
+            dateOfBirthCell.setCellValue(employee.getDateOfBirth());
+            dateOfBirthCell.setCellStyle(dateCellStyle);
 
             row.createCell(3)
                     .setCellValue(employee.getSalary());
         }
 
+        // Resize all columns to fit the content size
         for(int i = 0; i < columns.length; i++) {
             sheet.autoSizeColumn(i);
         }
 
         // Write the output to a file
         FileOutputStream fileOut = new FileOutputStream("poi-generated-file.xlsx");
+        workbook.write(fileOut);
+        fileOut.close();
+    }
+
+
+    // Example to modify an existing excel file
+    private static void modifyExistingWorkbook() throws InvalidFormatException, IOException {
+        // Obtain a workbook from the excel file
+        Workbook workbook = WorkbookFactory.create(new File("existing-spreadsheet.xlsx"));
+
+        // Get Sheet at index 0
+        Sheet sheet = workbook.getSheetAt(0);
+
+        // Get Row at index 1
+        Row row = sheet.getRow(1);
+
+        // Get the Cell at index 2 from the above row
+        Cell cell = row.getCell(2);
+
+        // Create the cell if it doesn't exist
+        if (cell == null)
+            cell = row.createCell(2);
+
+        // Update the cell's value
+        cell.setCellType(CellType.STRING);
+        cell.setCellValue("Updated Value");
+
+        // Write the output to a file
+        FileOutputStream fileOut = new FileOutputStream("existing-spreadsheet.xlsx");
         workbook.write(fileOut);
         fileOut.close();
     }

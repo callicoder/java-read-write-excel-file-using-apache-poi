@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 public class ExcelReader {
     public static final String SAMPLE_XLS_FILE_PATH = "./sample-xls-file.xls";
-    public static final String SAMPLE_XLSX_FILE_PATH = "sample-xlsx-file.xlsx";
+    public static final String SAMPLE_XLSX_FILE_PATH = "./sample-xlsx-file.xlsx";
 
     public static void main(String[] args) throws IOException, InvalidFormatException {
 
@@ -46,8 +46,6 @@ public class ExcelReader {
         workbook.forEach(sheet -> {
             System.out.println("=> " + sheet.getSheetName());
         });
-
-
 
         /*
            ==================================================================
