@@ -50,7 +50,7 @@ public class ExcelWriter {
         // Create a Font for styling header cells
         Font headerFont = workbook.createFont();
         headerFont.setBold(true);
-        headerFont.setFontHeight((short) 16);
+        headerFont.setFontHeightInPoints((short) 14);
         headerFont.setColor(IndexedColors.RED.getIndex());
 
         // Create a CellStyle with the font
