@@ -99,6 +99,8 @@ public class ExcelWriter {
         FileOutputStream fileOut = new FileOutputStream("poi-generated-file.xlsx");
         workbook.write(fileOut);
         fileOut.close();
+
+        workbook.close();
     }
 
 
