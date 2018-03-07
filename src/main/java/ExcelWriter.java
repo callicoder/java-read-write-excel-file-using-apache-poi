@@ -130,6 +130,9 @@ public class ExcelWriter {
         FileOutputStream fileOut = new FileOutputStream("existing-spreadsheet.xlsx");
         workbook.write(fileOut);
         fileOut.close();
+
+        // Closing the workbook
+        workbook.close();
     }
 }
 
